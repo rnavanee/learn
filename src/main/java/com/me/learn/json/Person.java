@@ -7,18 +7,23 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.me.learn.json.util.JsonDateToStringConverter;
+import com.me.learn.json.util.JsonPersonNameConverter;
+import com.me.learn.json.util.JsonStringToDateConverter;
 
 
 @JsonIgnoreProperties (ignoreUnknown = true, value = { "isSenior" })
 public class Person {
 
 	private Long id;
+	
+	@JsonSerialize (converter=JsonPersonNameConverter.class)
 	private String name;
 
 	private Boolean isSenior;
 	
-	@JsonSerialize (converter = DateToStringConverter.class)
-	@JsonDeserialize (converter = StringToDateConverter.class)
+	@JsonSerialize (converter = JsonDateToStringConverter.class)
+	@JsonDeserialize (converter = JsonStringToDateConverter.class)
 	private Date dob;
 	
 	public Person() {
